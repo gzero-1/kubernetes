@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dbpos
+spec:
+  containers:
+  - name: dbpos
+    image: postgres:15.1
