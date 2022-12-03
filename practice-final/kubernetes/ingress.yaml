@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: py-app1-ingress
+  labels:
+    name: py-app1
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: py-app1-svc
+            port: 
+              number: 8080
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /engs
+        backend:
+          service:
+            name: py-app1-svc
+            port: 
+              number: 8080

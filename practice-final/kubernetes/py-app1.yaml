@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: py-app1-svc
+  labels:
+    app: py-app1
+spec:
+  selector:
+    app: py-app1
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py-app1
+spec:
+  selector:
+    matchLabels:
+      app: py-app1
+  template:
+    metadata:
+      labels:
+        app: py-app1
+    spec:
+      containers:
+      - name: py-app1
+        image:  gggimgs/py-app1:1
+        #command: ["tail"]
+        #args: ["-f", "/dev/null"]
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_HOST
+            value: mysql-svc
+          - name: DB_PASSWD
+            valueFrom:
+              secretKeyRef:
+                key: MYSQL_ROOT_PASSWORD
+                name: py-app1-secret

@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+ web:
+  build:
+   context: .
+  ports:
+  - 8080:8080
+  links:
+  - mysqldb
+  environment:
+    DB_HOST: mysqldb
+    DB_PASSWD: pw
+
+ mysqldb:
+  image: mysql
+  ports:
+  - 3306:3306
+  environment:
+  - MYSQL_ROOT_PASSWORD=pw
